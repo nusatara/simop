@@ -6,6 +6,8 @@ use Livewire\Component;
 use App\Models\Kota;
 use App\Models\Kecamatan;
 use App\Models\Desa;
+use App\Models\JenisAset;
+use App\Models\Das;
 use App\Models\AsetsBendungan;
 use DB;
 use Auth;
@@ -16,7 +18,7 @@ class Create extends Component
     public $id_kecamatan;
     public $id_desa;
     public $nama_bendungan;
-    public $das;
+    public $id_das;
     public $x;
     public $prov;
     public $tipe;
@@ -40,7 +42,7 @@ class Create extends Component
         'id_jenisaset' => ['required'],
         'file_pendukung' => ['required'],
         'nama_bendungan' => ['required'],
-        'das' => ['required'],
+        'id_das' => ['required'],
         'prov' => ['required'],
     ];
     
@@ -49,10 +51,14 @@ class Create extends Component
     }
 
     public function render(){
+        $jenisaset = JenisAset::all();
+        $das = Das::all();
         $kota = Kota::all();
-        $kecamatan = Kota::where('id', $this->id_kota)->get();
-        $desa = Kecamatan::where('id', $this->id_kecamatan)->get();
+        $kecamatan = Kecamatan::where('id_kota', $this->id_kota)->get();
+        $desa = Desa::where('id_kota', $this->id_kota)->where('id_kecamatan', $this->id_kecamatan)->get();
         return view('livewire.voyager.asets-bendungan.create',[
+        'jenisaset' => $jenisaset,
+        'das' => $das,
         'kota' => $kota,
         'kecamatan' => $kecamatan,
         'desa' => $desa,
@@ -66,13 +72,13 @@ class Create extends Component
             'id_desa' => ['required'],
             'nama_bendungan' => ['required'],
             'id_jenisaset' => ['required'],
-            'das' => ['required'],
+            'id_das' => ['required'],
             'prov' => ['required'],
             'file_pendukung' => ['required'],
         ]);
         $store = DB::table('asets_bendungan')->insert([
             'nama_bendungan'=>$this->nama_bendungan,
-            'das'=>$this->das,
+            'id_das'=>$this->id_das,
             'x'=>$this->x,
             'prov'=>$this->prov,
             'tipe'=>$this->tipe,

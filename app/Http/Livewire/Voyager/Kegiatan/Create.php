@@ -70,5 +70,8 @@ class Create extends Component
             'id_airtanah'=> $airtanah,
             'x'=> $koordinat,
         ]);
+        if($store){
+            return redirect()->route('voyager.asets_bendungan.index');
+        }
     }
 }
