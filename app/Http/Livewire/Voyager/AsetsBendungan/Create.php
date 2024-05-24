@@ -13,7 +13,7 @@ use Auth;
 class Create extends Component
 {
     public $id_kota;
-    public $id_kec;
+    public $id_kecamatan;
     public $id_desa;
     public $nama_bendungan;
     public $das;
@@ -35,7 +35,7 @@ class Create extends Component
 
     protected $rules = [
         'id_kota' => ['required'],
-        'id_kec' => ['required'],
+        'id_kecamatan' => ['required'],
         'id_desa' => ['required'],
         'id_jenisaset' => ['required'],
         'file_pendukung' => ['required'],
@@ -50,11 +50,11 @@ class Create extends Component
 
     public function render(){
         $kota = Kota::all();
-        $kec = Kota::where('id_kota', $this->id_kota)->get();
-        $desa = Kecamatan::where('id_kec', $this->id_kec)->get();
+        $kecamatan = Kota::where('id', $this->id_kota)->get();
+        $desa = Kecamatan::where('id', $this->id_kecamatan)->get();
         return view('livewire.voyager.asets-bendungan.create',[
         'kota' => $kota,
-        'kec' => $kec,
+        'kecamatan' => $kecamatan,
         'desa' => $desa,
         ]);
     }
@@ -62,7 +62,7 @@ class Create extends Component
     public function store(){
         $this->validate([
             'id_kota' => ['required'],
-            'id_kec' => ['required'],
+            'id_kecamatan' => ['required'],
             'id_desa' => ['required'],
             'nama_bendungan' => ['required'],
             'id_jenisaset' => ['required'],
@@ -89,7 +89,7 @@ class Create extends Component
             'file_pendukung'=>$this->file_pendukung,
             'id_jenisaset'=>$this->id_jenisaset,
             'id_kota'=>$this->id_kota,
-            'id_kec'=>$this->id_kec,
+            'id_kecamatan'=>$this->id_kecamatan,
             'id_desa'=>$this->id_desa,
         ]);
         if($store){
