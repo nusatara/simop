@@ -51,7 +51,7 @@
              </div>
              {{-- end --}}
 
-             @if (Auth::user()->hasRole(['admin','user']))
+             
             <div class="form-group col-lg-4 col-md-4">
                 <label>Kota</label>
                 <select wire:model="id_kota" class="form-control">
@@ -95,7 +95,7 @@
                     </div>
                 @enderror
             </div>
-        @endif
+        
 
              <div class="form-group col-lg-4 col-md-4">
                 <label>Tipe Urugan</label>
@@ -136,7 +136,7 @@
              </div>
              <div class="form-group col-lg-4 col-md-4">
                 <label>Luas Genangan NWL</label>
-                <input type="date" class="form-control"  wire:model='luasgenangan_nwl'>
+                <input type="text" class="form-control"  wire:model='luasgenangan_nwl'>
                 @error('luasgenangan_nwl')
                     <div class="alert alert-warning" role="alert">
                         {{ $message }}
@@ -189,9 +189,9 @@
                     </div>
                 @enderror
              </div>
-             <div class="form-group col-lg-4 col-md-4">
+             <div class="form-group col-lg-6 col-md-6">
                 <label>Keterangan</label>
-                <input type="text"class="form-control"  wire:model='ket'>
+                <textarea class="form-control"  wire:model='ket' rows="6"> </textarea>
                 @error('ket')
                     <div class="alert alert-warning" role="alert">
                         {{ $message }}

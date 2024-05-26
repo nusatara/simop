@@ -19,6 +19,12 @@ protected $spatial = ['x'];
 public function kecamatan(){
     return $this->belongsTo(Kecamatan::class,'id_kecamatan','id_kecamatan');
 }
+public function kota(){
+    return $this->belongsTo(Kota::class,'id_kota','id_kota');
+}
+public function desa(){
+    return $this->belongsTo(Desa::class,'id_desa','id_desa');
+}
 
 
 protected static function booted()

@@ -14,9 +14,5 @@ use HasFactory,Resizable,Spatial;
 protected $table =  "kecamatan";
 protected $spatial = ['x'];
 
-public function kota(){
-    return $this -> belongsTo('App\Models\Kota','id_kota','id')->withDefault([
-        'nama_kota' => ''
-    ]);
-}
+
 }
