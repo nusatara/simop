@@ -12,7 +12,7 @@ use App\Models\AsetsBendungan;
 use DB;
 use Auth;
 
-class Create extends Component
+class Edit extends Component
 {
     public $id_kota;
     public $id_kecamatan;
@@ -35,6 +35,30 @@ class Create extends Component
     public $id_jenisaset;
     public $file_pendukung;
 
+    public function mount($id){
+        $data = AsetsBendungan::findOrFail($id);
+        $this->data_id = $id;
+        $this->nama_bendungan=$data->nama_bendungan;
+        $this->prov=$data->prov;
+        $this->tipe = $data->tipe;
+        $this->manfaat_irigasi = $data->manfaat_irigasi;
+        $this->manfaat_airbaku=$data->manfaat_airbaku;
+        $this->manfaat_listrik=$data->manfaat_listrik;
+        $this->luasgenangan_nwl=$data->luasgenangan_nwl;
+        $this->vt_efektif=$data->vt_efektif;
+        $this->vt_total=$data->vt_total;
+        $this->elev_puncakbendungan=$data->elev_puncakbendungan;
+        $this->elev_spillway=$data->elev_spillway;
+        $this->elev_intake=$data->elev_intake;
+        $this->ket=$data->ket;
+        $this->id_jenisaset=$data->id_jenisaset;
+        $this->file_pendukung=$data->file_pendukung;
+        $this->id_kota=$data->id_kota;
+        $this->id_kecamatan=$data->id_kecamatan;
+        $this->id_desa=$data->id_desa;
+        $this->id_das=$data->id_das;
+    }
+
     protected $rules = [
         'id_kota' => ['required'],
         // 'id_kecamatan' => ['required'],
@@ -45,18 +69,16 @@ class Create extends Component
         'id_das' => ['required'],
         'prov' => ['required'],
     ];
-    
-    public function updated($properyName){
-        $this->validateOnly($properyName);
+    public function updated($propertyName){
+        $this->validateOnly($propertyName);
     }
-
     public function render(){
         $jenisaset = JenisAset::all();
         $das = Das::all();
         $kota = Kota::all();
         $kecamatan = Kecamatan::where('id_kota', $this->id_kota)->get();
         $desa = Desa::where('id_kota', $this->id_kota)->where('id_kecamatan', $this->id_kecamatan)->get();
-        return view('livewire.voyager.asets-bendungan.create',[
+        return view('livewire.voyager.asets-bendungan.edit',[
         'jenisaset' => $jenisaset,
         'das' => $das,
         'kota' => $kota,
@@ -64,7 +86,6 @@ class Create extends Component
         'desa' => $desa,
         ]);
     }
-
     public function store(){
         $this->validate([
             'id_kota' => ['required'],
@@ -76,7 +97,7 @@ class Create extends Component
             'prov' => ['required'],
             'file_pendukung' => ['required'],
         ]);
-        $store = DB::table('asets_bendungan')->insert([
+        $store = DB::table('asets_bendungan')->whereId($this->data_id)->update([
             'nama_bendungan'=>$this->nama_bendungan,
             'id_das'=>$this->id_das,
             'x'=>$this->x,

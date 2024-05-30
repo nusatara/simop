@@ -12,8 +12,8 @@
         @else
 
         @endif --}}
-        <div class="col-lg-5 col-md-6">
-            <input type="text" placeholder="Cari Aset Tanah..." class="form-control" wire:model='search'>
+        <div class="col-lg-12 col-md-12">
+            <input type="text" placeholder="Cari Aset Bendungan..." class="form-control" wire:model='search'>
         </div>
         {{-- <div class="col-lg-2">
             <a class="btn btn-success" href="{{ route('export.aset-tanah') }}">Export to Excel</a>
@@ -25,6 +25,7 @@
      <table class="table">
       <thead>
           <tr>
+              <th>Nomor</th>
               <th>Nama Bendungan</th>
               <th>DAS</th>
               <th>Kabupaten / Kota</th>
@@ -35,10 +36,11 @@
       <tbody>
           @foreach ($data as $i)
           <tr>
+              <td></td>
               <td>{{ $i->nama_bendungan }}</td>
               <td>{{ App\Models\JenisAset::where('id',$i->id_das)->get('nama_asets') }}</td>
               <td>{{App\Models\Kota::where('id',$i->id_kota)->get('name') }}</td>
-              <td><a href="{{$i->file_pendukung }}"><i class="voyager-download"></i></a> </td>
+              <td><a href="{{ Storage::disk(config('voyager.storage.disk'))->url($data->{$i->file_pendukung})}}" ><i class="voyager-download"></i></a> </td>
               <td>
                 <div class="btn-group" role="group" aria-label="...">
                   <button class="btn btn-info btn-sm"> <i class="voyager-location"></i> </button>

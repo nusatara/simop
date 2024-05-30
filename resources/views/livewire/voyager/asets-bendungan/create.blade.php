@@ -42,8 +42,8 @@
             </div>
             <div class="form-group col-lg-4 col-md-4">
                 <label>Provinsi</label>
-                <input type="text" class="form-control"  wire:model='provinsi'>
-                @error('provinsi')
+                <input type="text" class="form-control"  wire:model='prov'>
+                @error('prov')
                 <div class="alert alert-warning" role="alert">
                     {{ $message }}
                 </div>

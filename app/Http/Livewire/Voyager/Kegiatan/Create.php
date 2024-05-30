@@ -71,7 +71,7 @@ class Create extends Component
             'x'=> $koordinat,
         ]);
         if($store){
-            return redirect()->route('voyager.asets_bendungan.index');
+            return redirect()->route('voyager.kegiatan.index');
         }
     }
 }
